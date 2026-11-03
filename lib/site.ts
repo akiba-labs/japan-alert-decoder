@@ -28,6 +28,7 @@ export const SIBLING_TOOLS = [
   { href: "https://japan-hsp-points.vercel.app", label: "Japan HSP Points Calculator" },
   { href: "https://japan-pet-quarantine.vercel.app", label: "Japan Pet Quarantine Check" },
   { href: "https://japan-leaving-tax.vercel.app", label: "Japan Leaving Tax Check" },
+  { href: "https://japan-disaster-prep.vercel.app", label: "Japan Disaster Prep Check" },
   { href: "https://japan-trip-brain.vercel.app", label: "Japan Trip Brain" },
   { href: "https://free-agent-tools.vercel.app", label: "Free Agent Tools MCP" },
 ] as const;
