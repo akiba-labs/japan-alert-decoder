@@ -198,6 +198,12 @@ export default function HomePage() {
         </p>
       </section>
 
+      <p className="mt-12 max-w-3xl text-base">
+        <Link href="/winter" className="underline underline-offset-2 hover:text-foreground">
+          Snow and winter alerts (大雪警報, 暴風雪警報, なだれ注意報): what each one means
+        </Link>
+      </p>
+
       <FaqSection items={faq} heading="Japan alert questions" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppLd).replace(/</g, "\\u003c") }} />
     </div>

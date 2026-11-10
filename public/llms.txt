@@ -3,6 +3,7 @@
 > Free, keyless decoder for Japanese emergency alerts: what an alert means, its alert level, what to do now (by situation) and its official name in 14 languages. Covers 緊急地震速報 Earthquake Early Warning (warning / forecast / cancellation), shindo, tsunami (大津波警報 / 津波警報 / 津波注意報), the new level-named weather warnings in force since 2026-05-29 (Level 5 特別警報 Emergency Warning, Level 4 危険警報 Urgent Warning, Level 3 警報 Warning, Level 2 注意報 Advisory for 大雨 heavy rain, 土砂災害 landslide, 氾濫 flood, 高潮 storm surge; Level 1 早期注意情報) and the old names they replaced, other weather warnings, 気象防災速報 (線状降水帯), municipal evacuation levels (緊急安全確保 / 避難指示 / 高齢者等避難), Nankai Trough Earthquake Extra Information, the Hokkaido-Sanriku Subsequent Earthquake Advisory, volcanic alert levels, J-ALERT missile alerts and heat-stroke alerts. Data as of 2026-10-17. Educational guide, not an alert service: no live data; always follow official instructions.
 
 Site: https://japan-alert-decoder.vercel.app
+Winter / snow alerts page: https://japan-alert-decoder.vercel.app/winter (大雪警報, 暴風雪警報, なだれ注意報, 短時間大雪 bulletin; no alert levels)
 
 ## Key facts (official sources below)
 - Since 2026-05-29 (JMA "new disaster weather information") warnings carry the level in their name: e.g. 土砂災害警戒情報 → レベル4土砂災害危険警報 "Level 4 Urgent Warning (Landslide)"; 大雨警報（土砂災害） → レベル3土砂災害警報; 大雨警報（浸水害） → レベル3大雨警報; 洪水警報 / 洪水注意報 are no longer issued (merged into 大雨, plus 氾濫 for named rivers); 氾濫発生情報 → レベル5氾濫特別警報; 氾濫危険情報 → レベル4氾濫危険警報; old 高潮警報 (Level 4) → レベル4高潮危険警報, while レベル3高潮警報 is now Level 3.
