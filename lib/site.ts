@@ -34,6 +34,7 @@ export const SIBLING_TOOLS = [
   { href: "https://japan-job-loss.vercel.app", label: "Japan Job Loss Check" },
   { href: "https://japan-visa-renewal.vercel.app", label: "Japan Visa Renewal Window Check" },
   { href: "https://japan-jlpt-check.vercel.app", label: "Japan JLPT Level Check" },
+  { href: "https://japan-graduate-visa.vercel.app", label: "Japan Graduate Visa Check" },
   { href: "https://japan-trip-brain.vercel.app", label: "Japan Trip Brain" },
   { href: "https://free-agent-tools.vercel.app", label: "Free Agent Tools MCP" },
 ] as const;
