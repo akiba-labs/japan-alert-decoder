@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { FaqSection, type FaqItem } from "@/components/faq-section";
 import { LIVE_LINKS, RULES_AS_OF, URGENCY_LABEL, getAlert } from "@/lib/alerts";
+import { API_PAUSED_NOTE, isGithubPages } from "@/lib/hosting";
 import { DISCLAIMER_SHORT, HONESTY } from "@/lib/site";
 
 const title = "Japan snow and winter alerts decoded: 大雪警報, 暴風雪警報, なだれ注意報 and what to do (2026-27 winter)";
@@ -99,7 +100,7 @@ export default function WinterPage() {
                 return (
                   <tr key={id} className="align-top">
                     <td className="py-3 pr-4 font-medium text-foreground">
-                      <Link href={`/r?a=${id}`} className="underline underline-offset-2">
+                      <Link href={isGithubPages ? "/" : `/r?a=${id}`} className="underline underline-offset-2">
                         {x.nameJa}
                       </Link>
                     </td>
@@ -124,7 +125,15 @@ export default function WinterPage() {
               </a>
             </span>
           ))}
-          . Sources: JMA (every source in <a className="underline underline-offset-2" href="/api/rules">/api/rules</a>).
+          . Sources: JMA
+          {isGithubPages ? (
+            <>. {API_PAUSED_NOTE}</>
+          ) : (
+            <>
+              {" "}
+              (every source in <a className="underline underline-offset-2" href="/api/rules">/api/rules</a>).
+            </>
+          )}
         </p>
       </section>
 

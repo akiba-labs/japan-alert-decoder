@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Decoder } from "@/components/decoder";
 import { FaqSection, type FaqItem } from "@/components/faq-section";
 import { LEGACY, RULES_AS_OF, getAlert, rules } from "@/lib/alerts";
+import { API_PAUSED_NOTE, isGithubPages, pagesSiteUrl, withBasePath } from "@/lib/hosting";
 import { COLOR_HEX, PUBLIC_URL } from "@/lib/share";
 
 const title = "Japan emergency alert decoder: what does this alert mean and what do I do? (EEW, tsunami, Level 4 warnings)";
@@ -24,7 +25,7 @@ const webAppLd = {
   "@type": "WebApplication",
   name: "Japan Alert Decoder",
   alternateName: ["Japanese emergency alert translator", "緊急速報 解説", "Japan warning level explainer"],
-  url: PUBLIC_URL,
+  url: isGithubPages ? pagesSiteUrl(PUBLIC_URL) : PUBLIC_URL,
   applicationCategory: "UtilitiesApplication",
   operatingSystem: "Any",
   isAccessibleForFree: true,
@@ -73,7 +74,9 @@ const faq: FaqItem[] = [
   },
   {
     q: "Is there a free API for AI agents to decode Japanese alerts?",
-    a: `Yes. Free, no key, CORS open: GET ${PUBLIC_URL}/api/decode?text=レベル4土砂災害危険警報 returns the alert, level, colour, urgency, meaning, what to do, official names in 14 languages and sources. All alert types at ${PUBLIC_URL}/api/rules, OpenAPI at ${PUBLIC_URL}/openapi.json, and the japan_emergency_alert_decode tool on https://free-agent-tools.vercel.app/mcp.`,
+    a: isGithubPages
+      ? API_PAUSED_NOTE
+      : `Yes. Free, no key, CORS open: GET ${PUBLIC_URL}/api/decode?text=レベル4土砂災害危険警報 returns the alert, level, colour, urgency, meaning, what to do, official names in 14 languages and sources. All alert types at ${PUBLIC_URL}/api/rules, OpenAPI at ${PUBLIC_URL}/openapi.json, and the japan_emergency_alert_decode tool on https://free-agent-tools.vercel.app/mcp.`,
   },
   {
     q: "スマホに届いた緊急速報の意味を英語で知るには？",
@@ -150,7 +153,7 @@ export default function HomePage() {
                     {l.replacedBy.map((id) => {
                       const a = getAlert(id)!;
                       return (
-                        <Link key={id} href={`/r?a=${id}`} className="mr-3 underline underline-offset-2 hover:text-foreground">
+                        <Link key={id} href={isGithubPages ? "/" : `/r?a=${id}`} className="mr-3 underline underline-offset-2 hover:text-foreground">
                           {a.nameJa} ({a.nameEn})
                         </Link>
                       );
@@ -174,28 +177,45 @@ export default function HomePage() {
           <a className="underline underline-offset-2 hover:text-foreground" href="https://www.data.jma.go.jp/developer/multilingual.html" target="_blank" rel="noopener noreferrer">
             JMA multilingual dictionary
           </a>
-          , Cabinet Office and J-ALERT pages; every source in{" "}
-          <a className="underline underline-offset-2 hover:text-foreground" href="/api/rules">
-            /api/rules
-          </a>
-          .
+          , Cabinet Office and J-ALERT pages
+          {isGithubPages ? (
+            <>. {API_PAUSED_NOTE}</>
+          ) : (
+            <>
+              ; every source in{" "}
+              <a className="underline underline-offset-2 hover:text-foreground" href="/api/rules">
+                /api/rules
+              </a>
+              .
+            </>
+          )}
         </p>
       </section>
 
       <section className="mt-12 max-w-3xl rounded-3xl border border-line bg-panel/40 p-5 sm:p-6">
         <h2 className="text-lg font-semibold text-foreground">For AI agents and developers</h2>
-        <p className="mt-2 text-sm text-muted">
-          Keyless JSON, CORS open, GET or POST:{" "}
-          <a className="font-mono text-foreground underline underline-offset-2 break-all" href="/api/decode?text=%E3%83%AC%E3%83%99%E3%83%AB4%E5%9C%9F%E7%A0%82%E7%81%BD%E5%AE%B3%E5%8D%B1%E9%99%BA%E8%AD%A6%E5%A0%B1&lang=vi">
-            /api/decode?text=レベル4土砂災害危険警報&amp;lang=vi
-          </a>
-          . All alert types: <a className="font-mono text-foreground underline underline-offset-2" href="/api/rules">/api/rules</a>. Docs: <a className="underline underline-offset-2" href="/openapi.json">OpenAPI</a>,{" "}
-          <a className="underline underline-offset-2" href="/llms.txt">llms.txt</a>, MCP tool <span className="font-mono text-foreground">japan_emergency_alert_decode</span> on{" "}
-          <a className="underline underline-offset-2" href="https://free-agent-tools.vercel.app" target="_blank" rel="noopener noreferrer">
-            free-agent-tools
-          </a>
-          .
-        </p>
+        {isGithubPages ? (
+          <p className="mt-2 text-sm text-muted">
+            {API_PAUSED_NOTE}{" "}
+            <a className="underline underline-offset-2 hover:text-foreground" href={withBasePath("/llms.txt")}>
+              llms.txt
+            </a>{" "}
+            describes the decoder and the API contract.
+          </p>
+        ) : (
+          <p className="mt-2 text-sm text-muted">
+            Keyless JSON, CORS open, GET or POST:{" "}
+            <a className="font-mono text-foreground underline underline-offset-2 break-all" href="/api/decode?text=%E3%83%AC%E3%83%99%E3%83%AB4%E5%9C%9F%E7%A0%82%E7%81%BD%E5%AE%B3%E5%8D%B1%E9%99%BA%E8%AD%A6%E5%A0%B1&lang=vi">
+              /api/decode?text=レベル4土砂災害危険警報&amp;lang=vi
+            </a>
+            . All alert types: <a className="font-mono text-foreground underline underline-offset-2" href="/api/rules">/api/rules</a>. Docs: <a className="underline underline-offset-2" href="/openapi.json">OpenAPI</a>,{" "}
+            <a className="underline underline-offset-2" href="/llms.txt">llms.txt</a>, MCP tool <span className="font-mono text-foreground">japan_emergency_alert_decode</span> on{" "}
+            <a className="underline underline-offset-2" href="https://free-agent-tools.vercel.app" target="_blank" rel="noopener noreferrer">
+              free-agent-tools
+            </a>
+            .
+          </p>
+        )}
       </section>
 
       <p className="mt-12 max-w-3xl text-base">

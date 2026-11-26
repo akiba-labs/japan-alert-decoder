@@ -4,7 +4,8 @@ Free decoder for Japanese emergency alerts: paste the alert (Japanese or English
 
 Covers the Earthquake Early Warning (緊急地震速報) and its cancellation, shindo, tsunami warnings, the new level-named weather warnings in force since 2026-05-29 (レベル5特別警報 / レベル4危険警報 / レベル3警報 / レベル2注意報 for heavy rain, landslide, flood, storm surge) with the old names they replaced, other weather warnings, 気象防災速報 (線状降水帯), evacuation levels (避難指示 etc.), Nankai Trough information, the Hokkaido-Sanriku advisory, volcanic alert levels, J-ALERT missile alerts and heat alerts.
 
-- Site: https://japan-alert-decoder.vercel.app
+- Full app and API (Vercel): https://japan-alert-decoder.vercel.app
+- Decoder (GitHub Pages): https://akiba-labs.github.io/japan-alert-decoder/
 - API: `GET /api/decode?text=レベル4土砂災害危険警報&lang=vi` (also POST JSON), `GET /api/rules`
 - Docs: `/openapi.json`, `/llms.txt`, `/.well-known/ai-plugin.json`
 - MCP: `japan_emergency_alert_decode` on https://free-agent-tools.vercel.app/mcp
@@ -17,6 +18,11 @@ Educational guide, not an alert service: no live data. Always follow official in
 npm install
 npm test
 npm run build
+npm run build:pages
 ```
+
+`npm run build` is the Vercel app (decoder, JSON API, share pages). `npm run build:pages` writes a static `out/` for GitHub Pages and checks that internal links and assets resolve under `/japan-alert-decoder`. Server routes stay in the repo; the Pages script only moves them aside for that build.
+
+GitHub settings: **Settings → Pages → Build and deployment → Source: GitHub Actions**. Pushes to `main` deploy with `.github/workflows/pages.yml`. The copy-paste steps for the other tool repos are at the top of `scripts/build-pages.mjs`.
 
 MIT licence.
